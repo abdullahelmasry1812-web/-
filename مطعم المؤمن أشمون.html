@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطعم المؤمن أشمون | أشهى وجبات الدجاج والشاورما</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (Cairo & Tajawal) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#D92626',
+                            darkRed: '#991B1B',
+                            amber: '#F59E0B',
+                            gold: '#D97706',
+                            dark: '#111827',
+                            lightBg: '#FFFBEB',
+                            cardBg: '#1F2937'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-amber selection:text-black">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-brand-red via-red-600 to-brand-amber text-white text-xs sm:text-sm font-bold py-2 px-4 text-center flex items-center justify-center gap-2 shadow-md">
+        <i class="fa-solid fa-motorcycle animate-bounce">
+        </i>
+        <span>خدمة التوصيل السريع متوفرة الآن في أشمون والقرى المجاورة! اتصل على: </span>
+        <a href="tel:01112181066" class="underline hover:text-yellow-200 dir-ltr font-mono font-bold">011 12181066</a>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Name -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-red to-brand-amber flex items-center justify-center text-white text-2xl shadow-lg shadow-brand-red/30">
+                        <i class="fa-solid fa-drumstick-bite"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-wide text-white flex items-center gap-2">
+                            مطعم المؤمن
+                            <span class="text-xs bg-brand-amber/20 text-brand-amber px-2 py-0.5 rounded-full border border-brand-amber/30 font-medium">أشمون</span>
+                        </h1>
+                        <p class="text-xs text-slate-400">لأشهى وجبات الدجاج والشاورما الفاخرة</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8 font-semibold text-slate-300">
+                    <a href="#hero" class="hover:text-brand-amber transition-colors">الرئيسية</a>
+                    <a href="#menu" class="hover:text-brand-amber transition-colors">قائمة الطعام</a>
+                    <a href="#reviews" class="hover:text-brand-amber transition-colors">تقييمات العملاء</a>
+                    <a href="#location" class="hover:text-brand-amber transition-colors">الموقع والاتصال</a>
+                </nav>
+
+                <!-- Actions / Cart Button -->
+                <div class="flex items-center gap-3">
+                    <a href="tel:01112181066" class="hidden sm:flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-brand-amber px-4 py-2.5 rounded-xl border border-slate-700 transition font-bold text-sm">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>01112181066</span>
+                    </a>
+                    
+                    <button onclick="toggleCartDrawer()" class="relative bg-gradient-to-r from-brand-amber to-brand-gold hover:opacity-95 text-slate-950 px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition shadow-lg shadow-brand-amber/20">
+                        <i class="fa-solid fa-basket-shopping text-lg"></i>
+                        <span class="hidden sm:inline">السلة</span>
+                        <span id="cart-badge" class="bg-slate-950 text-brand-amber text-xs font-black px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative py-12 lg:py-24 overflow-hidden bg-slate-950 border-b border-slate-800">
+            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#F59E0B_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Hero Info -->
+                    <div class="text-center lg:text-right space-y-6">
+                        <!-- Rating Badge -->
+                        <div class="inline-flex items-center gap-2 bg-slate-800/80 border border-slate-700 px-4 py-2 rounded-full text-sm font-semibold text-slate-200">
+                            <div class="flex text-amber-400 text-xs">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <span class="font-bold text-white">4.4</span>
+                            <span class="text-slate-400 text-xs">(9+ تقييم على خرائط جوجل)</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight">
+                            طعم الشاورما والدجاج <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-amber via-yellow-400 to-brand-red">
+                                الأفضل في أشمون!
+                            </span>
+                        </h1>
+
+                        <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                            نقدم لكم أجود أنواع الشاورما العربي، الوجبات السريعة، والدجاج المقرمش بأعلى معايير الجودة والنظافة، مع المكونات الطازجة يومياً.
+                        </p>
+
+                        <!-- Buttons Call to Action -->
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#menu" class="bg-gradient-to-r from-brand-red to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-red/30 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                                <i class="fa-solid fa-utensils"></i>
+                                <span>استعرض القائمة واطلب</span>
+                            </a>
+                            <a href="tel:01112181066" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-6 py-4 rounded-xl border border-slate-700 transition flex items-center gap-3">
+                                <i class="fa-solid fa-headset text-brand-amber"></i>
+                                <div class="text-right leading-none">
+                                    <span class="block text-xs text-slate-400 mb-1">طلب مباشر هاتفياً</span>
+                                    <span class="text-sm font-mono dir-ltr font-bold text-brand-amber">011 12181066</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Highlights Features -->
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80">
+                            <div class="text-center lg:text-right">
+                                <i class="fa-solid fa-leaf text-emerald-400 text-xl mb-1"></i>
+                                <h4 class="font-bold text-white text-sm">مكونات طازجة</h4>
+                                <p class="text-xs text-slate-400">تحضير يومي بكل حب</p>
+                            </div>
+                            <div class="text-center lg:text-right">
+                                <i class="fa-solid fa-fire text-brand-amber text-xl mb-1"></i>
+                                <h4 class="font-bold text-white text-sm">طعم أصيل</h4>
+                                <p class="text-xs text-slate-400">خلطات سرية مميزة</p>
+                            </div>
+                            <div class="text-center lg:text-right">
+                                <i class="fa-solid fa-truck-fast text-sky-400 text-xl mb-1"></i>
+                                <h4 class="font-bold text-white text-sm">توصيل سريع</h4>
+                                <p class="text-xs text-slate-400">لكافة أنحاء أشمون</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Hero Visual Card -->
+                    <div class="relative flex justify-center">
+                        <div class="relative w-full max-w-md rounded-3xl overflow-hidden border-2 border-brand-amber/30 bg-slate-900 p-3 glow-effect">
+                            <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80" alt="وجبات مطعم المؤمن أشمون" class="w-full h-80 object-cover rounded-2xl">
+                            
+                            <div class="absolute bottom-6 right-6 left-6 bg-slate-950/85 backdrop-blur-md p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-brand-amber font-bold uppercase tracking-wider">الأكثر طلباً🔥</span>
+                                    <h3 class="text-white font-bold text-lg">وجبة شاورما عربي سوبر</h3>
+                                    <p class="text-slate-400 text-xs">مع البطاطس، الثومية، والمخلل</p>
+                                </div>
+                                <div class="text-left">
+                                    <span class="text-brand-amber font-black text-xl">120</span>
+                                    <span class="text-xs text-slate-400"> ج.م</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="py-16 bg-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-brand-amber font-bold text-sm tracking-widest uppercase">قائمة الطعام</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mt-1">منيو مطعم المؤمن</h2>
+                    <p class="text-slate-400 text-sm mt-2">اختر أصنافك المفضلة وأضفها للسلة للطلب السريع</p>
+                </div>
+
+                <!-- Category Tabs Navigation -->
+                <div class="flex items-center justify-center gap-2 sm:gap-4 overflow-x-auto pb-4 hide-scrollbar mb-8">
+                    <button onclick="filterCategory('all')" class="category-btn active bg-brand-amber text-slate-950 px-5 py-2.5 rounded-full font-bold text-sm transition whitespace-nowrap shadow-md">
+                        الكل 🍽️
+                    </button>
+                    <button onclick="filterCategory('shawarma')" class="category-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-5 py-2.5 rounded-full font-bold text-sm transition whitespace-nowrap border border-slate-700">
+                        الشاورما 🌯
+                    </button>
+                    <button onclick="filterCategory('chicken')" class="category-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-5 py-2.5 rounded-full font-bold text-sm transition whitespace-nowrap border border-slate-700">
+                        وجبات الدجاج 🍗
+                    </button>
+                    <button onclick="filterCategory('sandwiches')" class="category-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-5 py-2.5 rounded-full font-bold text-sm transition whitespace-nowrap border border-slate-700">
+                        الساندوتشات 🍔
+                    </button>
+                    <button onclick="filterCategory('sides')" class="category-btn bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white px-5 py-2.5 rounded-full font-bold text-sm transition whitespace-nowrap border border-slate-700">
+                        المقبلات والمشروبات 🍟
+                    </button>
+                </div>
+
+                <!-- Menu Items Grid -->
+                <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic rendering via JavaScript -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Reviews & Ratings Section -->
+        <section id="reviews" class="py-16 bg-slate-950 border-t border-b border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                    <div>
+                        <span class="text-brand-amber font-bold text-sm">آراء زبائننا الكرام</span>
+                        <h2 class="text-3xl font-black text-white mt-1">ماذا يقول عملاؤنا عنا؟</h2>
+                        <p class="text-slate-400 text-sm mt-1">تقييمات واقعية من مستخدمي خرائط جوجل</p>
+                    </div>
+
+                    <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex items-center gap-4">
+                        <div class="text-center border-l border-slate-800 pl-4">
+                            <span class="text-3xl font-black text-white">4.4</span>
+                            <div class="flex text-amber-400 text-xs justify-center mt-1">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400">متوسط التقييم العام</p>
+                            <p class="text-sm font-bold text-white">ممتاز جداً 👍</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-brand-amber border border-slate-700">
+                                        H
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">هناء - أشمون</h4>
+                                        <span class="text-xs text-slate-500">منذ أسبوعين</span>
+                                    </div>
+                                </div>
+                                <div class="flex text-amber-400 text-xs">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                "من أفضل المطاعم في أشمون طعم الشاورما تحفة والدجاج طازج ونظيف جداً والتوصيل سريع. بالتوفيق دائماً."
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-brand-amber border border-slate-700">
+                                        A
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">alyezz1984</h4>
+                                        <span class="text-xs text-slate-500">عميلGoogle Maps</span>
+                                    </div>
+                                </div>
+                                <div class="flex text-amber-400 text-xs">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                "الوجبات طعمها جميل جداً وكميتها مشبعة جداً. نتمنى الاهتمام دائماً بمكونات السلطة والشاورما طازجة دائماً كما هي."
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-brand-amber border border-slate-700">
+                                        M
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">محمد المنوفي</h4>
+                                        <span class="text-xs text-slate-500">منذ شهر</span>
+                                    </div>
+                                </div>
+                                <div class="flex text-amber-400 text-xs">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                "خدمة ممتازة وأسعار مناسبة بالنسبة للجودة.. أنصح بوجبة الشاورما العربي مع الثومية الخاصة بيهم!"
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Contact Info Section -->
+        <section id="location" class="py-16 bg-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Info Left Column -->
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-brand-amber font-bold text-sm">يسعدنا زيارتكم</span>
+                            <h2 class="text-3xl font-black text-white mt-1">عنوان المطعم ومعلومات الاتصال</h2>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-4 bg-slate-800/60 rounded-xl border border-slate-700/60">
+                                <div class="w-12 h-12 rounded-lg bg-brand-amber/20 text-brand-amber flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">العنوان بالكامل</h4>
+                                    <p class="text-slate-300 text-sm mt-0.5">7XVH+Q8R، مدينة أشمون، مركز أشمون، محافظة المنوفية (رمز بريدي: 6022641)</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 p-4 bg-slate-800/60 rounded-xl border border-slate-700/60">
+                                <div class="w-12 h-12 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">أرقام التواصل والطلب</h4>
+                                    <a href="tel:01112181066" class="text-brand-amber font-mono font-bold dir-ltr block text-lg mt-0.5 hover:underline">011 12181066</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 p-4 bg-slate-800/60 rounded-xl border border-slate-700/60">
+                                <div class="w-12 h-12 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">ساعات العمل</h4>
+                                    <p class="text-slate-300 text-sm mt-0.5">يومياً من الساعة 10:00 صباحاً وحتى 1:00 منتصف الليل</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Direct Call Button -->
+                        <div class="pt-2">
+                            <a href="tel:01112181066" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-6 rounded-xl text-center flex items-center justify-center gap-3 transition shadow-lg shadow-emerald-600/20">
+                                <i class="fa-solid fa-phone-volume text-xl"></i>
+                                <span>اتصل الآن للطلب الفوري (01112181066)</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Map Box Right Column -->
+                    <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700 h-96 relative flex flex-col justify-between overflow-hidden">
+                        <iframe 
+                            class="w-full h-full rounded-2xl filter contrast-125 grayscale-20 opacity-90"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.205792945289!2d30.985!3d30.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDE4JzAwLjAiTiAzMMKwNTknMDAuMCJF!5e0!3m2!1sar!2seg!4v1600000000000!5m2!1sar!2seg"
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+
+                        <div class="absolute bottom-6 right-6 left-6 bg-slate-950/90 backdrop-blur-md p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-map-pin text-brand-red text-2xl"></i>
+                                <div>
+                                    <p class="font-bold text-white text-sm">موقعنا على الخريطة</p>
+                                    <p class="text-xs text-slate-400">أشمون - محافظة المنوفية</p>
+                                </div>
+                            </div>
+                            <a href="https://maps.google.com/?q=7XVH+Q8R,+Ashmoun" target="_blank" class="bg-brand-amber text-slate-950 text-xs font-bold px-3 py-2 rounded-lg hover:bg-amber-400 transition">
+                                فتح في خرائط Google
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-right">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-red to-brand-amber flex items-center justify-center text-white font-bold">
+                        <i class="fa-solid fa-drumstick-bite"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold">مطعم المؤمن أشمون</h3>
+                        <p class="text-xs text-slate-500">جميع الحقوق محفوظة © <span id="year"></span></p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6 text-sm">
+                    <a href="#hero" class="hover:text-brand-amber transition">الرئيسية</a>
+                    <a href="#menu" class="hover:text-brand-amber transition">المنيو</a>
+                    <a href="#reviews" class="hover:text-brand-amber transition">التقييمات</a>
+                    <a href="#location" class="hover:text-brand-amber transition">الاتصال</a>
+                </div>
+
+                <div class="flex items-center gap-4 text-lg">
+                    <a href="tel:01112181066" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-brand-amber hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                    <a href="https://wa.me/201112181066" target="_blank" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-emerald-400 hover:bg-slate-700 transition">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer Overlay -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="fixed inset-y-0 left-0 max-w-full flex">
+            <div class="w-screen max-w-md bg-slate-900 border-r border-slate-800 flex flex-col justify-between text-slate-100">
+                
+                <!-- Drawer Header -->
+                <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-basket-shopping text-brand-amber"></i>
+                        <h3 class="font-bold text-lg text-white">سلة الطلبات</h3>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-white p-2 text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Body / Item List -->
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- Dynamic rendering via JavaScript -->
+                </div>
+
+                <!-- Drawer Footer & Checkout Form -->
+                <div class="p-4 border-t border-slate-800 bg-slate-950 space-y-4">
+                    
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm text-slate-400">
+                            <span>المجموع الفرعي:</span>
+                            <span id="cart-subtotal" class="font-bold text-white">0 ج.م</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-slate-400">
+                            <span>التوصيل:</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded">يُحدد عند الاتصال</span>
+                        </div>
+                        <div class="flex justify-between text-base font-black text-white border-t border-slate-800 pt-2">
+                            <span>الإجمالي التقديري:</span>
+                            <span id="cart-total" class="text-brand-amber font-mono text-xl">0 ج.م</span>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Input Fields -->
+                    <div class="space-y-3 pt-2">
+                        <input type="text" id="cust-name" placeholder="الاسم الكامل" class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-amber">
+                        <input type="tel" id="cust-phone" placeholder="رقم الهاتف للتواصل" class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-amber dir-rtl">
+                        <textarea id="cust-address" rows="2" placeholder="العنوان بالتفصيل في أشمون..." class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-brand-amber resize-none"></textarea>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <button onclick="sendOrderWhatsApp()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 transition">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>طلب عبر واتساب</span>
+                        </button>
+                        <button onclick="sendOrderPhone()" class="bg-brand-red hover:bg-red-600 text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2 transition">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>طلب عبر الاتصال</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Floating Quick Call/WhatsApp Bar -->
+    <div class="sm:hidden fixed bottom-4 left-4 right-4 z-40 flex gap-2">
+        <a href="tel:01112181066" class="flex-1 bg-brand-red text-white py-3 rounded-full font-bold text-center text-sm shadow-2xl flex items-center justify-center gap-2 border border-red-500">
+            <i class="fa-solid fa-phone"></i>
+            <span>اتصال تلفوني</span>
+        </a>
+        <a href="https://wa.me/201112181066" target="_blank" class="flex-1 bg-emerald-600 text-white py-3 rounded-full font-bold text-center text-sm shadow-2xl flex items-center justify-center gap-2 border border-emerald-500">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>واتساب مباشر</span>
+        </a>
+    </div>
+
+    <!-- JavaScript Data & Interactivity -->
+    <script>
+        // Menu Data Structure
+        const menuData = [
+            {
+                id: 1,
+                name: "وجبة شاورما عربي سوبر",
+                category: "shawarma",
+                price: 120,
+                desc: "شرائح شاورما دجاج متبلة ومحشوة في خبز الصاج مع بطاطس وثومية ومخلل",
+                img: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 2,
+                name: "ساندوتش شاورما دجاج صاروخ",
+                category: "shawarma",
+                price: 65,
+                desc: "ساندوتش شاورما كبير بحجم مميز مع الثومية الخاصة والخيار المخلل",
+                img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 3,
+                name: "وجبة فتة شاورما دجاج",
+                category: "shawarma",
+                price: 110,
+                desc: "أرز بسمتي مبهر مع شرائح الشاورما والخبز المحمص والصوس الخاص",
+                img: "https://images.unsplash.com/photo-1633321702516-7fe7b0939d5e?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 4,
+                name: "وجبة بروستد 4 قطع مقرمشة",
+                category: "chicken",
+                price: 140,
+                desc: "4 قطع دجاج بروستد طازج مقرمش + بطاطس + ثومية + كولسلو + خبز",
+                img: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 5,
+                name: "وجبة بروستد 8 قطع عائلية",
+                category: "chicken",
+                price: 260,
+                desc: "8 قطع دجاج مقرمش + بطاطس حجم عائلي + 2 ثومية + سلطة كولسلو",
+                img: "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 6,
+                name: "ساندوتش زنجر دجاج حار",
+                category: "sandwiches",
+                price: 70,
+                desc: "صدر دجاج مقرمش مع الجبنة الذائبة، الخس والصوص الحار المميز",
+                img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 7,
+                name: "ساندوتش كرسبي دجاج",
+                category: "sandwiches",
+                price: 65,
+                desc: "شرائح دجاج كرسبي مع المايونيز والجبن والمايونيز الذهبي",
+                img: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 8,
+                name: "باكيت بطاطس فارم فريتس",
+                category: "sides",
+                price: 30,
+                desc: "بطاطس مقرمشة ذهبية مع البهارات الخاصة",
+                img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 9,
+                name: "علبة ثومية مؤمن خاصة",
+                category: "sides",
+                price: 15,
+                desc: "صلصة الثومية الغنية بالنكهة الشامية الأصلية",
+                img: "https://images.unsplash.com/photo-1577805947697-89e18249d767?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 10,
+                name: "مشروب غازي كانز",
+                category: "sides",
+                price: 15,
+                desc: "بيبسي / كوكاكولا / سفن أب 330 مل",
+                img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+
+        // Cart State
+        let cart = [];
+
+        // Dynamic Render of Menu
+        function renderMenu(category = 'all') {
+            const menuGrid = document.getElementById('menu-grid');
+            menuGrid.innerHTML = '';
+
+            const filtered = category === 'all' 
+                ? menuData 
+                : menuData.filter(item => item.category === category);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-brand-amber/40 transition duration-300 group";
+                card.innerHTML = `
+                    <div>
+                        <div class="relative overflow-hidden h-48">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-slate-950/80 text-brand-amber font-mono font-bold text-sm px-3 py-1 rounded-full border border-slate-700">
+                                ${item.price} ج.م
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-white text-lg group-hover:text-brand-amber transition">${item.name}</h3>
+                            <p class="text-slate-400 text-xs mt-2 leading-relaxed">${item.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="addToCart(${item.id})" class="w-full bg-slate-800 hover:bg-brand-amber text-slate-200 hover:text-slate-950 font-bold py-2.5 rounded-xl border border-slate-700 hover:border-brand-amber flex items-center justify-center gap-2 transition">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>إضافة للسلة</span>
+                        </button>
+                    </div>
+                `;
+                menuGrid.appendChild(card);
+            });
+        }
+
+        // Category Filter Function
+        function filterCategory(cat) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-amber', 'text-slate-950', 'active');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+
+            event.target.classList.remove('bg-slate-800', 'text-slate-300');
+            event.target.classList.add('bg-brand-amber', 'text-slate-950', 'active');
+
+            renderMenu(cat);
+        }
+
+        // Add Item to Cart
+        function addToCart(id) {
+            const item = menuData.find(i => i.id === id);
+            const existIndex = cart.findIndex(c => c.id === id);
+
+            if(existIndex > -1) {
+                cart[existIndex].qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        // Update Cart Quantity
+        function changeQty(id, delta) {
+            const index = cart.findIndex(c => c.id === id);
+            if(index > -1) {
+                cart[index].qty += delta;
+                if(cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Update Cart Drawer UI
+        function updateCartUI() {
+            const cartContainer = document.getElementById('cart-items-container');
+            const cartBadge = document.getElementById('cart-badge');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const totalEl = document.getElementById('cart-total');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            cartBadge.textContent = totalItems;
+            subtotalEl.textContent = `${totalAmount} ج.م`;
+            totalEl.textContent = `${totalAmount} ج.م`;
+
+            if(cart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="text-center py-12 text-slate-500">
+                        <i class="fa-solid fa-basket-shopping text-4xl mb-3 opacity-30"></i>
+                        <p class="text-sm">السلة فارغة حالياً</p>
+                        <p class="text-xs text-slate-600 mt-1">تصفح القائمة وأضف وجباتك المفضلة!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            cartContainer.innerHTML = cart.map(item => `
+                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="${item.img}" alt="${item.name}" class="w-12 h-12 object-cover rounded-lg">
+                        <div>
+                            <h4 class="font-bold text-white text-xs">${item.name}</h4>
+                            <span class="text-brand-amber text-xs font-mono font-bold">${item.price * item.qty} ج.م</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-900 px-2 py-1 rounded-lg border border-slate-700">
+                        <button onclick="changeQty(${item.id}, -1)" class="text-slate-400 hover:text-white px-1 font-bold">-</button>
+                        <span class="text-xs font-bold text-white px-1">${item.qty}</span>
+                        <button onclick="changeQty(${item.id}, 1)" class="text-slate-400 hover:text-white px-1 font-bold">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle Drawer Visibility
+        function toggleCartDrawer(show = null) {
+            const drawer = document.getElementById('cart-drawer');
+            const isHidden = drawer.classList.contains('hidden');
+            
+            if(show === true || isHidden) {
+                drawer.classList.remove('hidden');
+                setTimeout(() => drawer.classList.remove('opacity-0'), 10);
+            } else {
+                drawer.classList.add('opacity-0');
+                setTimeout(() => drawer.classList.add('hidden'), 300);
+            }
+        }
+
+        // WhatsApp Order Generation
+        function sendOrderWhatsApp() {
+            if(cart.length === 0) {
+                alert('الرجاء إضافة أصناف للسلة أولاً');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if(!name || !phone || !address) {
+                alert('يرجى ملء الاسم ورقم الهاتف والعنوان لتأكيد الطلب.');
+                return;
+            }
+
+            let msg = `*طلب جديد من موقع مطعم المؤمن أشمون* 🍗🌯\n\n`;
+            msg += `*بيانات العميل:*\n`;
+            msg += `• الاسم: ${name}\n`;
+            msg += `• الهاتف: ${phone}\n`;
+            msg += `• العنوان: ${address}\n\n`;
+            msg += `*تفاصيل الطلب:*\n`;
+
+            cart.forEach(item => {
+                msg += `- ${item.name} × ${item.qty} = ${item.price * item.qty} ج.م\n`;
+            });
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            msg += `\n*إجمالي الطلب:* ${total} ج.م`;
+
+            const encodedMsg = encodeURIComponent(msg);
+            window.open(`https://wa.me/201112181066?text=${encodedMsg}`, '_blank');
+        }
+
+        // Direct Phone Order
+        function sendOrderPhone() {
+            window.location.href = 'tel:01112181066';
+        }
+
+        // Initial Dynamic Setup
+        window.onload = function() {
+            renderMenu('all');
+            document.getElementById('year').textContent = new Date().getFullYear();
+        };
+    </script>
+</body>
+</html>
